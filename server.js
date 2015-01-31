@@ -2,6 +2,7 @@ var GCM = require('node-gcm-ccs');
 var fs = require('fs');
 var conf = JSON.parse(fs.readFileSync('conf.json', 'utf8'));
 
+
 var gcm = GCM(conf.gcProjectName, conf.apiKey);
 
 gcm.on('message', function(messageId, from, category, data) {
@@ -28,17 +29,25 @@ gcm.on('message', function(messageId, from, category, data) {
     console.log('received message', arguments);
 });
 
+gcm.on('connected', function(){
+    console.log('Connected!');
+    
+})
+
 gcm.on('receipt', function(messageId, from, category, data) {
     console.log('received receipt', arguments);
 });
+
+
+
 ////
 //
 //var xmpp = require('node-xmpp');
 //var options = {
 //    type: 'client',
-//    jid: conf.gcProjectName+'@gcm.googleapis.com',
+//    jid: conf.gcProjectName+'@gcm-preprod.googleapis.com',
 //    password: conf.apiKey,
-//    port: 5235,
+//    port: 5236,
 //    host: 'gcm.googleapis.com',
 //    legacySSL: true,
 //    preferredSaslMechanism : 'PLAIN'
