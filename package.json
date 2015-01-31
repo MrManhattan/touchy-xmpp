@@ -19,6 +19,7 @@
   "homepage": "https://github.com/MrManhattan/touchy-xmpp",
   "dependencies": {
     "http-server": "^0.7.4",
-    "node-gcm-ccs": "0.0.0"
+    "node-gcm-ccs": "0.0.0",
+    "q": "^1.1.2"
   }
 }
