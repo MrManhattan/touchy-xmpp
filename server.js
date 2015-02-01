@@ -37,7 +37,7 @@ gcm.on('receipt', function(messageId, from, category, data) {
 var http = require('http');
 var url = require('url');
 var qs = require('querystring');
-http.createServer(function (req, res) {
+var server = http.createServer(function (req, res) {
 
     res.writeHead(200, {'Content-Type': 'text/plain'});
     url = url.parse(req.url);
@@ -92,9 +92,52 @@ http.createServer(function (req, res) {
             })
 
             break;
+        default:
+            fs.readFile(__dirname + '/index.html', function (err, data) {
+                if (err) {
+                    res.writeHead(500);
+                    return res.end('Error loading index.html');
+                }
+
+                res.writeHead(200);
+                res.end(data);
+            });
+            break;
+
     }
 
-}).listen(1337, '127.0.0.1');
+
+})
+var io = require('socket.io')(server);
+
+server.listen(80);
+
+console.log('Starting up socketIO');
+
+// establish socket io connection
+io.on('connection', function (socket) {
+
+    console.log('Someone connected!');
+    
+    
+    /**
+     * data.clientId
+     */
+    socket.on('Poke.ready', function(data){
+        console.log(data.clientId, 'Is Ready');
+
+        socket.emit('ready', data)
+    })
+
+    /**
+     * data.from clientId
+     * data.to clientId
+     */
+    socket.on('Poke.poke', function (data) {
+        console.log('Poke from:', data.from,  ' --> ', data.to);
+        socket.emit('poke', data);
+    });
+});
 
 /**
  *

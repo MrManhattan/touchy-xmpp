@@ -1,0 +1,20 @@
+<html>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var socket = io('http://localhost');
+        socket.on('news', function (data) {
+            console.log(data);
+            socket.emit('touch', { my: 'data' });
+        });
+    </script>
+    <body>
+        <button id="btnReady">Poke.ready</button>
+    </body>
+    <script>
+        document.querySelector('#btnReady').addEventListener('click', function(){
+            console.log('Sending click');
+            socket.emit('Poke.ready', {from: 'server',  to: 'Haemp'});
+        });
+    </script>
+</html>
+
