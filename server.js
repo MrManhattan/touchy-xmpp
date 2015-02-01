@@ -110,7 +110,7 @@ var server = http.createServer(function (req, res) {
 })
 var io = require('socket.io')(server);
 
-server.listen(80);
+server.listen(1337);
 
 console.log('Starting up socketIO');
 
