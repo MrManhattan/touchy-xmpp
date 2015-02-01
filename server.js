@@ -110,7 +110,7 @@ var server = http.createServer(function (req, res) {
 })
 var io = require('socket.io')(server);
 
-server.listen(1337);
+server.listen(1337, conf.ip);
 
 console.log('Starting up socketIO');
 
