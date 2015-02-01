@@ -124,9 +124,9 @@ io.on('connection', function (socket) {
      * data.clientId
      */
     socket.on('Poke.ready', function(data){
-        console.log(data.clientId, 'Is Ready');
+        console.log(data.from, 'Is Ready');
 
-        socket.emit('ready', data)
+        io.emit('Poke.ready', data)
     })
 
     /**
@@ -135,7 +135,7 @@ io.on('connection', function (socket) {
      */
     socket.on('Poke.poke', function (data) {
         console.log('Poke from:', data.from,  ' --> ', data.to);
-        socket.emit('poke', data);
+        io.emit('Poke.poke', data);
     });
 });
 
